@@ -7,15 +7,12 @@ services:
       # or an SSH tunnel: ssh -L 3000:localhost:3000 user@server
       # (OpenScience has no auth of its own; do NOT expose this port
       # directly to the network.)
-      - "127.0.0.1:3000:3000"
-    environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      # - OPENAI_API_KEY=${OPENAI_API_KEY}
-      # - GEMINI_API_KEY=${GEMINI_API_KEY}
-      # Extra HTTPS origins allowed by the server's Origin guard.
-      # For Tailscale, set this in .env to your tailnet's DNS name
-      # (Admin console → DNS), e.g. OPENSCIENCE_CORS_DOMAINS=tail1a2b3c.ts.net
-      - OPENSCIENCE_CORS_DOMAINS=${OPENSCIENCE_CORS_DOMAINS:-}
+      - "127.0.0.1:${OPENSCIENCE_HOST_PORT:-3000}:3000"
+    # Every variable you uncomment in .env is passed to the container:
+    # provider keys (ANTHROPIC_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY,
+    # GEMINI_API_KEY, GOOGLE_API_KEY, ...) and OPENSCIENCE_CORS_DOMAINS.
+    env_file:
+      - .env
     volumes:
       - ./workspace:/workspace
       - openscience-config:/home/researcher/.config/openscience
