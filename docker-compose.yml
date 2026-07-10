@@ -19,7 +19,10 @@ services:
     volumes:
       - ./workspace:/workspace
       - openscience-config:/home/researcher/.config/openscience
+      # auth.json (keys added via UI/CLI), sessions/chat history, logs
+      - openscience-data:/home/researcher/.local/share/openscience
     restart: unless-stopped
 
 volumes:
   openscience-config:
+  openscience-data:

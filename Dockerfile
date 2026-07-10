@@ -48,11 +48,13 @@ WORKDIR /workspace
 
 # Create a non-root user for running the agent
 # (the agent has shell access, so don't run as root).
-# Pre-create the config dir so a mounted volume inherits its ownership;
-# OpenScience stores config in ~/.config/openscience/openscience.json.
+# Pre-create the XDG dirs so mounted volumes inherit their ownership:
+#   ~/.config/openscience      → config (openscience.json)
+#   ~/.local/share/openscience → auth.json (API keys), sessions, logs
 RUN useradd -m -s /bin/bash researcher && \
-    mkdir -p /home/researcher/.config/openscience && \
-    chown -R researcher:researcher /workspace /home/researcher/.config
+    mkdir -p /home/researcher/.config/openscience \
+             /home/researcher/.local/share/openscience && \
+    chown -R researcher:researcher /workspace /home/researcher/.config /home/researcher/.local
 
 USER researcher
 

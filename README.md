@@ -87,9 +87,10 @@ or log in via Atlas (`docker exec -it openscience openscience login`).
 | Mount | Purpose |
 |-------|---------|
 | `/workspace` | Your research projects, code, data |
-| `/home/researcher/.config/openscience` | Config, credentials, sessions |
+| `/home/researcher/.config/openscience` | Config (`openscience.json`) |
+| `/home/researcher/.local/share/openscience` | `auth.json` (API keys added via UI/CLI), sessions/chat history, logs |
 
-Note: OpenScience stores its config under `~/.config/openscience/` (XDG path),
+Note: OpenScience uses XDG paths (`~/.config/...`, `~/.local/share/...`),
 not `~/.openscience`.
 
 ## Optional: expose over HTTPS with your own reverse proxy
